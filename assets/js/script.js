@@ -109,13 +109,13 @@ function handleCellClick(event) {
     playSound(currentPlayer);
 
     if (checkWinner()) {
-      winnerIcon.innerHTML = `<img src="/assets/game-images/raju.gif" alt="raju">`;
+      winnerIcon.innerHTML = `<img src="./assets/game-images/raju.gif" alt="raju">`;
       winnerName.textContent = `Player ${currentPlayer} wins!`;
       popup.style.display = 'flex';
       playSound('win');
       gameActive = false;
     } else if (gameBoard.every(cell => cell !== '')) {
-      winnerIcon.innerHTML = '<img src="/assets/game-images/shyam.gif" alt="shyam">'
+      winnerIcon.innerHTML = '<img src="./assets/game-images/shyam.gif" alt="shyam">'
       winnerName.textContent = "It's a draw!";
       popup.style.display = 'flex';
       gameActive = false;
@@ -128,7 +128,7 @@ function handleCellClick(event) {
 }
 
 function playSound(type) {
-  const sound = new Audio(`/assets/audio/${type}_sound.mp3`);
+  const sound = new Audio(`./assets/audio/${type}_sound.mp3`);
   sound.play();
 }
 
