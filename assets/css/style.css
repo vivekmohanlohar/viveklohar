@@ -753,6 +753,11 @@ ul.skills li:hover {
  font-size: clamp(24px, 5vw, 28px);
  margin: 0 0 26px 0;
  line-height: 1.1;
+ color: white;
+
+}
+.project__title h3 {
+  color:white;
 }
 
 .project_content .project__discription {
@@ -774,10 +779,6 @@ ul.skills li:hover {
  z-index: 2;
  margin: 20px 0px 10px;
  list-style: none;
-}
-
-.project__image {
- box-shadow: 10px 10px 30px var(--navy-shadow);
 }
 
 .project__tech_list li {
@@ -809,7 +810,11 @@ ul.skills li:hover {
  justify-content: left;
 }
 
-.project__image a img {
+.project__image {
+  box-shadow: 10px 10px 30px var(--navy-shadow);
+}
+
+.project__image img {
  width: 100%;
  height: 100%;
 }
@@ -1027,12 +1032,15 @@ ul.project__grid li:hover {
 
  .nav__navigation {
   position: absolute;
-  top: var(--nav-height);
+  top: 0;
   right: -100%;
   width: 70%;
-  height: calc(100vh - var(--nav-height));
-  background: var(--background-2);
+  height: calc(100vh + var(--nav-height));
+  background: var(--background);
+  box-shadow: var(--box-shadow);
   transition: var(--transition);
+  display: grid;
+  place-items: center;
  }
 
 
@@ -1043,7 +1051,7 @@ ul.project__grid li:hover {
  }
 
  .nav__navigation ul {
-  height: 70%;
+  height: 70vh;
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -1094,14 +1102,12 @@ ul.project__grid li:hover {
   transform: translateY(-.7rem);
   width: 50%;
   right: 0;
-  transition-delay: .2s
  }
 
  .menuBtn span:nth-child(3) {
   transform: translateY(.7rem);
   width: 50%;
   right: 0;
-  transition-delay: .2s;
  }
 
  .menu-active {
@@ -1264,6 +1270,16 @@ ul.project__grid li:hover {
   /* section */
   --section-height: auto;
   --section-padding: 6rem 0;
+ }
+ name {
+   font-size: 2.7rem;
+   opacity: .9;
+   font-weight: 900
+ }
+ 
+ subtitle{
+   font-size: 2.1rem;
+   font-weight: 800;
  }
 
  .spa-box {
