@@ -56,7 +56,6 @@
   --gredient-1: linear-gradient(to top, var(--theme), teal);
   --gredient-2: linear-gradient(to right, #1D976C, #93F9B9);
 
-
   /* font family */
   --font-sans: 'Calibre', 'Inter', 'San Francisco', 'SF Pro Text', -apple-system, system-ui, sans-serif;
   --font-mono: 'SF Mono', 'Fira Code', 'Fira Mono', 'Roboto Mono', monospace;
@@ -700,9 +699,22 @@ ul.skills li:hover {
   bottom: 0;
   left: -1.5px;
   width: 6px;
-  height: 88%;
   background: var(--theme-2);
   border-radius: 10px;
+}
+
+.edu-box.animate::before {
+  animation: heightIncrease 6000ms ease forwards;
+}
+
+@keyframes heightIncrease {
+  0% {
+    height: 0;
+  }
+
+  100% {
+    height: 90%;
+  }
 }
 
 .edu-hold:nth-child(4)::after {
@@ -720,6 +732,29 @@ ul.skills li:hover {
   font-size: 1.1rem;
   margin: 0;
   padding: 0;
+}
+
+.edu-hold .journey-stop::before {
+  width: 17px;
+  height: 17px;
+  border-radius: 10px;
+  background: var(--background);
+  left: -10px;
+  top: 20px;
+}
+
+.edu-hold .journey-stop::after {
+  width: 10px;
+  height: 10px;
+  border-radius: 10px;
+  background: var(--theme-2);
+  left: -6.5px;
+  top: 23.5px;
+  opacity: .7;
+}
+
+.edu-hold .content--head::nth-child(1)::after {
+  display: none;
 }
 
 /* ///// projects section ///// */
@@ -1026,7 +1061,7 @@ ul.project__grid li:hover {
   /* ///// logo section ///// */
 
   .logo {
-    width:3rem;
+    width: 3rem;
   }
 
   /* ///// Animated text section ///// */
@@ -1456,4 +1491,4 @@ ul.project__grid li:hover {
 #winnerIcon img {
   width: 200px;
   border-radius: 5px;
-}
+    }
