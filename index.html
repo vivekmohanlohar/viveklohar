@@ -734,6 +734,63 @@
       </div> -->
     </div>
   </section>
+
+  <!-- Feedback Section starts here -->
+  <section style="background-color: #091930; color: #16a591; padding: 20px;">
+    <div class="container">
+      <div class="feedback-container">
+        <h2>How was your experience?</h2>
+        <div class="emoji-buttons">
+          <div class="emoji-btn" data-value="😕 Poor">
+            <span class="emoji">😕</span>
+            <span class="emoji-expression">Poor</span>
+          </div>
+          <div class="emoji-btn" data-value="😐 Okay">
+            <span class="emoji">😐</span>
+            <span class="emoji-expression">Okay</span>
+          </div>
+          <div class="emoji-btn" data-value="🙂 Good">
+            <span class="emoji">🙂</span>
+            <span class="emoji-expression">Good</span>
+          </div>
+          <div class="emoji-btn" data-value="😊 Great">
+            <span class="emoji">😊</span>
+            <span class="emoji-expression">Great</span>
+          </div>
+          <div class="emoji-btn" data-value="😎 Superb">
+            <span class="emoji">😎</span>
+            <span class="emoji-expression">Superb</span>
+          </div>
+        </div>
+        <form action="https://formspree.io/f/xkggqkkk" method="POST" class="feedback-input">
+          <input type="hidden" name="emoji-feedback" id="emoji-feedback" value="">
+          <textarea name="feedback" id="feedback" placeholder="Leave your feedback..."></textarea>
+          <div class="form-btn-box">
+            <button type="submit" class="submit-feedback-btn">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Feedback Success Popup -->
+  <div class="feedback-popup" style="display: none;">
+    <div class="feedback-popup-content">
+      <h3>You're Amazing, Thanks for Your Feedback!</h3>
+      <p>Your input means a lot to me! Every piece of feedback you give helps me get better and bring you the best. I’m excited to continue improving with your support!🤘</p>
+      <button class="close-popup-btn">Close</button>
+    </div>
+  </div>
+
+  <!-- Feedback Error Popup -->
+  <div class="error-popup" style="display: none;">
+    <div class="feedback-popup-content">
+      <h3>You're Amazing, Thanks for Your Feedback!</h3>
+      <p>Your input means a lot to me! Every piece of feedback you give helps me get better and bring you the best. I’m excited to continue improving with your support!🤘</p>
+      <button class="close-error-popup-btn">Close</button>
+    </div>
+  </div>
+
   <br><br>
   <hr>
   <hr>
