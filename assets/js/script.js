@@ -3,7 +3,6 @@ window.addEventListener('scroll', () => {
   document.querySelector('nav').classList.toggle('window-scroll', window.scrollY > 0);
 });
 
-
 // Program to change navigation bar background on scroll
 let lastScrollTop = 0;
 
@@ -89,7 +88,6 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-
 // Education section timeline trigger on scroll
 const eduBox = document.querySelector('.edu-box');
 
@@ -104,7 +102,6 @@ const observer = new IntersectionObserver(entries => {
 });
 
 observer.observe(eduBox);
-
 
 // Tic Tac Toe Game
 const board = document.getElementById('board');
@@ -179,3 +176,94 @@ function resetGame() {
 
   popup.style.display = 'none';
 }
+
+// Feedback section starts here
+
+document.addEventListener('DOMContentLoaded', () => {
+  const emojiButtons = document.querySelectorAll('.emoji-btn');
+  const feedbackInput = document.querySelector('.feedback-input');
+  const emojiFeedbackInput = document.getElementById('emoji-feedback');
+  const emojiExpressions = document.querySelectorAll('.emoji-expression');
+  const form = document.querySelector('.feedback-input');
+  const feedbackPopup = document.querySelector('.feedback-popup');
+  const closePopupBtn = document.querySelector('.close-popup-btn');
+  const errorPopup = document.querySelector('.error-popup'); // Error popup
+
+  // Emoji button click event
+  emojiButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      // Set selected emoji value to hidden input
+      const selectedValue = button.getAttribute('data-value');
+      emojiFeedbackInput.value = selectedValue;
+
+      // Highlight selected emoji button
+      emojiButtons.forEach(btn => btn.classList.remove('active'));
+      button.classList.add('active');
+
+      // Hide all emoji expressions and reset opacity
+      emojiExpressions.forEach(expression => {
+        expression.style.display = 'none';
+        expression.style.opacity = 0;
+      });
+
+      // Show the clicked emoji's expression smoothly
+      const expression = button.querySelector('.emoji-expression');
+      expression.style.display = 'inline';
+      setTimeout(() => {
+        expression.style.opacity = 1;
+      }, 10); // Small delay to trigger opacity transition
+
+      // Show feedback input with smooth fade-in effect
+      feedbackInput.style.display = 'block';
+      setTimeout(() => {
+        feedbackInput.style.opacity = 1;
+      }, 10); // Small delay to trigger opacity transition
+    });
+  });
+
+  // Form submission handling
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault(); // Prevent the default form submission
+
+    const feedbackText = document.getElementById('feedback').value.trim();
+    const emoji = emojiFeedbackInput.value;
+
+    if (!emoji || !feedbackText) {
+      alert('Please select an emoji and provide feedback.');
+      return;
+    }
+
+    // Construct the FormData object to send to Formspree
+    const formData = new FormData(form);
+    try {
+      const response = await fetch(form.action, {
+        method: 'POST',
+        body: formData,
+      });
+
+      // Check if the response from Formspree is OK
+      if (response.ok) {
+        // Form submission successful, show the feedback success popup
+        feedbackPopup.style.display = 'flex';
+      } else {
+        // If response status is not OK, show the error popup
+        throw new Error('Failed to submit form');
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      // Show the error popup if there is an issue with submission
+      errorPopup.style.display = 'flex';
+    }
+  });
+
+  // Close the success popup
+  closePopupBtn.addEventListener('click', () => {
+    feedbackPopup.style.display = 'none';
+  });
+
+  // Close the error popup
+  const closeErrorPopupBtn = document.querySelector('.close-error-popup-btn');
+  closeErrorPopupBtn.addEventListener('click', () => {
+    errorPopup.style.display = 'none';
+  });
+});
