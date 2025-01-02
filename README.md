@@ -12,8 +12,6 @@ Welcome to my portfolio website! This repository contains the source code for my
 - [Getting Started](#getting-started)
 - [Usage](#usage)
 - [Project Structure](#project-structure)
-- [Contributing](#contributing)
-- [License](#license)
 
 ## Introduction
 
@@ -34,12 +32,3 @@ This portfolio website is designed to provide a comprehensive overview of my bac
 - Visual Studio Code
 - ChatGPT
 - SPCK Code Editor
-
-## Getting Started
-
-To run this project locally, follow these steps:
-
-1. Clone the repository:
-
-   ```bash
-   git clone https://github.com/vivekmohanlohar/viveklohar.git
