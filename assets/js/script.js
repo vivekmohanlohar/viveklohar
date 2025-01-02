@@ -229,7 +229,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const emoji = emojiFeedbackInput.value;
 
     if (!emoji || !feedbackText) {
-      alert('Please select an emoji and provide feedback.');
+      alert('Please write a feedback');
       return;
     }
 
