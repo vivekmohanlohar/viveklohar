@@ -1,21 +1,21 @@
 Hey Hello! 👋 
 
-# Vivek Lohar's Portfolio
+# My Portfolio Website
 
-Welcome to my portfolio website! This repository contains the source code for my personal portfolio, showcasing my skills, experience, education, and projects.
+Developed this web page to showcase my skills in various fields—this website itself is an example of my work. I enjoy learning, exploring, identifying problems, and finding solutions using knowledge and technology.
 
 ## Table of Contents
 
 - [Introduction](#introduction)
 - [Features](#features)
 - [Technologies Used](#technologies-used)
-- [Getting Started](#getting-started)
-- [Usage](#usage)
-- [Project Structure](#project-structure)
 
 ## Introduction
 
-This portfolio website is designed to provide a comprehensive overview of my background, education, professional experience, and the projects I have worked on. It serves as a digital representation of my skills and achievements.
+I am an Electrical Engineer having web development skills. Started learning web development in lockdown with my Galaxy M01 Core 🫡. I make websites with spck code editor its like vs code for smartphone. It is a fabulous code editor helped me earn some side income. So I thout why not to make a website to showcase my skills with a website. I have hosted this and it is also listed on Google search console.
+
+Do visit this site and please provide your feedback
+Thank You 🫡
 
 ## Features
 
@@ -24,7 +24,7 @@ This portfolio website is designed to provide a comprehensive overview of my bac
 - **Education:** Details about my educational background.
 - **Projects:** View information about the projects I have worked on.
 
-## Technologies Used
+## Tools & Technologies Used
 
 - HTML5
 - CSS3
@@ -32,3 +32,4 @@ This portfolio website is designed to provide a comprehensive overview of my bac
 - Visual Studio Code
 - ChatGPT
 - SPCK Code Editor
+- Gemini
