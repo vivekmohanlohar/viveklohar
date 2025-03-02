@@ -103,79 +103,103 @@ const observer = new IntersectionObserver(entries => {
 
 observer.observe(eduBox);
 
-// Tic Tac Toe Game
+//Hear Pheri Game Seciton starts here
 const board = document.getElementById('board');
-const message = document.getElementById('message');
-const popup = document.getElementById('popup');
-const winnerName = document.getElementById('winnerName');
-const cells = document.querySelectorAll('.cell');
-const winnerIcon = document.getElementById('winnerIcon');
-let currentPlayer = '😄';
-let gameBoard = ['', '', '', '', '', '', '', '', ''];
-let gameActive = true;
+const cells = [];
+let currentPlayer = 'Raju';
+let gameOver = false;
+let firstClick = true;
 
-board.addEventListener('click', handleCellClick);
+// Create cells and add click event
+for (let i = 0; i < 9; i++) {
+  const cell = document.createElement('div');
+  cell.classList.add('cell');
+  cell.addEventListener('click', () => makeMove(i));
+  board.appendChild(cell);
+  cells.push(cell);
+}
 
-function handleCellClick(event) {
-  const clickedCell = event.target;
-  const cellIndex = clickedCell.dataset.index;
-  playSound('o_turn');
+// Winning combinations
+const winCombos = [
+  [0, 1, 2], [3, 4, 5], [6, 7, 8], // Rows
+  [0, 3, 6], [1, 4, 7], [2, 5, 8], // Columns
+  [0, 4, 8], [2, 4, 6] // Diagonals
+];
 
-  if (gameBoard[cellIndex] === '' && gameActive) {
-    gameBoard[cellIndex] = currentPlayer;
-    clickedCell.textContent = currentPlayer;
+// Game state
+const gameBoard = ['', '', '', '', '', '', '', '', ''];
 
-    playSound(currentPlayer);
+function makeMove(index) {
+  if (gameBoard[index] === '' && !gameOver) {
+    playClickSound();
+
+    gameBoard[index] = currentPlayer === 'Raju' ? '<img src="./assets/game-assets/raju.jpg" alt="Raju">' : '<img src="./assets/game-assets/shyam.jpg" alt="Shyam">';
+    cells[index].innerHTML = gameBoard[index];
+
+    if (firstClick) {
+      firstClick = false;
+      const buttons = document.getElementById('buttons');
+      buttons.style.display = 'flex';
+    }
 
     if (checkWinner()) {
-      winnerIcon.innerHTML = `<img src="./assets/game-images/raju.gif" alt="raju">`;
-      winnerName.textContent = `Player ${currentPlayer} wins!`;
-      popup.style.display = 'flex';
-      playSound('win');
-      gameActive = false;
-    } else if (gameBoard.every(cell => cell !== '')) {
-      winnerIcon.innerHTML = '<img src="./assets/game-images/shyam.gif" alt="shyam">'
-      winnerName.textContent = "It's a draw!";
-      popup.style.display = 'flex';
-      gameActive = false;
-      playSound('draw');
+      playWinSound();
+      displayResult();
+    } else if (!gameBoard.includes('')) {
+      playDrawSound();
+      displayResult('dono ke dono bekar <br> kya gamer banoge re tum');
     } else {
-      currentPlayer = currentPlayer === '😄' ? '😛' : '😄';
-      message.textContent = `Player ${currentPlayer}'s turn`;
+      currentPlayer = currentPlayer === 'Raju' ? 'Shyam' : 'Raju';
     }
   }
 }
 
-function playSound(type) {
-  const sound = new Audio(`./assets/audio/${type}_sound.mp3`);
-  sound.play();
+function checkWinner() {
+  for (const combo of winCombos) {
+    const [a, b, c] = combo;
+    if (gameBoard[a] !== '' && gameBoard[a] === gameBoard[b] && gameBoard[a] === gameBoard[c]) {
+      return true;
+    }
+  }
+  return false;
 }
 
-function checkWinner() {
-  const winPatterns = [
-    [0, 1, 2], [3, 4, 5], [6, 7, 8], // Rows
-    [0, 3, 6], [1, 4, 7], [2, 5, 8], // Columns
-    [0, 4, 8], [2, 4, 6] // Diagonals
-  ];
-
-  return winPatterns.some(pattern => {
-    const [a, b, c] = pattern;
-    return gameBoard[a] !== '' && gameBoard[a] === gameBoard[b] && gameBoard[a] === gameBoard[c];
-  });
+function displayResult(message = '') {
+  const resultText = document.getElementById('result-text');
+  resultText.innerHTML = message !== '' ? message : `${currentPlayer} Jeet Gaya re Baba`;
+  const resultPopup = document.getElementById('result-popup');
+  resultPopup.style.display = 'block';
+  gameOver = true;
 }
 
 function resetGame() {
-  gameBoard = ['', '', '', '', '', '', '', '', ''];
-  currentPlayer = '😄';
-  gameActive = true;
-  message.textContent = 'Player 😄\'s turn';
-
-  cells.forEach(cell => {
-    cell.textContent = '';
-  });
-
-  popup.style.display = 'none';
+  const resultPopup = document.getElementById('result-popup');
+  resultPopup.style.display = 'none';
+  const buttons = document.getElementById('buttons');
+  buttons.style.display = 'none';
+  currentPlayer = 'Raju';
+  gameBoard.fill('');
+  cells.forEach(cell => cell.innerHTML = '');
+  gameOver = false;
+  firstClick = true;
 }
+
+function playClickSound() {
+  const rajuSound = document.getElementById('rajuSound');
+  const shyamSound = document.getElementById('shyamSound');
+  currentPlayer === 'Raju' ? rajuSound.play() : shyamSound.play();
+}
+
+function playWinSound() {
+  const winSound = document.getElementById('winSound');
+  winSound.play();
+}
+
+function playDrawSound() {
+  const drawSound = document.getElementById('drawSound');
+  drawSound.play();
+}
+
 // Javascript for the time greeting starts here
 document.addEventListener("DOMContentLoaded", function () {
   let startTime = Date.now();
@@ -305,5 +329,92 @@ document.addEventListener('DOMContentLoaded', () => {
     errorPopup.style.display = 'none';
   });
 });
+
+
+
+
+// BLOG SECTION CAROUSEL SCRIPT STARTS HERE
+document.addEventListener("DOMContentLoaded", function () {
+  const carousel = document.querySelector(".carousel");
+  const arrowBtns = document.querySelectorAll(".wrapper i");
+  const wrapper = document.querySelector(".wrapper");
+
+  const firstCard = carousel.querySelector(".card");
+  const firstCardWidth = firstCard.offsetWidth;
+
+  let isDragging = false,
+    startX,
+    startScrollLeft,
+    timeoutId;
+
+  const dragStart = (e) => {
+    isDragging = true;
+    carousel.classList.add("dragging");
+    startX = e.pageX;
+    startScrollLeft = carousel.scrollLeft;
+  };
+
+  const dragging = (e) => {
+    if (!isDragging) return;
+
+    // Calculate the new scroll position
+    const newScrollLeft = startScrollLeft - (e.pageX - startX);
+
+    // Check if the new scroll position exceeds 
+    // the carousel boundaries
+    if (newScrollLeft <= 0 || newScrollLeft >=
+      carousel.scrollWidth - carousel.offsetWidth) {
+
+      // If so, prevent further dragging
+      isDragging = false;
+      return;
+    }
+
+    // Otherwise, update the scroll position of the carousel
+    carousel.scrollLeft = newScrollLeft;
+  };
+
+  const dragStop = () => {
+    isDragging = false;
+    carousel.classList.remove("dragging");
+  };
+
+  const autoPlay = () => {
+
+    // Return if window is smaller than 800
+    if (window.innerWidth < 800) return;
+
+    // Calculate the total width of all cards
+    const totalCardWidth = carousel.scrollWidth;
+
+    // Calculate the maximum scroll position
+    const maxScrollLeft = totalCardWidth - carousel.offsetWidth;
+
+    // If the carousel is at the end, stop autoplay
+    if (carousel.scrollLeft >= maxScrollLeft) return;
+
+    // Autoplay the carousel after every 2500ms
+    timeoutId = setTimeout(() =>
+      carousel.scrollLeft += firstCardWidth, 2500);
+  };
+
+  carousel.addEventListener("mousedown", dragStart);
+  carousel.addEventListener("mousemove", dragging);
+  document.addEventListener("mouseup", dragStop);
+  wrapper.addEventListener("mouseenter", () =>
+    clearTimeout(timeoutId));
+  wrapper.addEventListener("mouseleave", autoPlay);
+
+  // Add event listeners for the arrow buttons to 
+  // scroll the carousel left and right
+  arrowBtns.forEach(btn => {
+    btn.addEventListener("click", () => {
+      carousel.scrollLeft += btn.id === "left" ?
+        -firstCardWidth : firstCardWidth;
+    });
+  });
+});
+
+
 
 // Copyright Vivek Lohar 2025
