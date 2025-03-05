@@ -1161,6 +1161,9 @@ ul.skills li:hover {
 p.inline_link {
   font-size: var(--fz-sm);
   text-align: center;
+  min-width: 60%;
+  max-width: 80%;
+  margin: 0 auto;
 }
 
 .project__grid {
