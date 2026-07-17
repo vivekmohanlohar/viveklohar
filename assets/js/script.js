@@ -251,7 +251,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const closePopupBtn = document.querySelector('.close-popup-btn');
   const errorPopup = document.querySelector('.error-popup'); // Error popup
 
-  // Emoji button click event
+  // Emoji button click event 
+  //yaha taq
   emojiButtons.forEach(button => {
     button.addEventListener('click', () => {
       // Set selected emoji value to hidden input

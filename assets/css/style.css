@@ -1781,17 +1781,6 @@ ul.project__grid li:hover {
     height: .5rem;
     margin-top: 2rem;
   }
-
-  /* .spa-nav::-webkit-scrollbar {
-    display: flex;
-    overflow-x: auto;
-    width: calc(100% + 100px);
-    padding-left: 50px;
-    margin-left: -50px;
-    margin-bottom: 30px;
-    } */
-
-
   .spa-nav::-webkit-scrollbar-track {
     background-color: #23355454;
     border-radius: 5px;
@@ -1941,6 +1930,7 @@ textarea {
   outline: none;
   transition: all 400ms ease;
 }
+/* /////fffffff// */
 
 textarea:hover {
   border: 2px solid #16A59152;
