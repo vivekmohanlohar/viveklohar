@@ -1,6 +1,36 @@
 /* ==========================================================================
    Global Site Transitions, Scrolling, & Loader Logic
    ========================================================================== */
+window.addEventListener('DOMContentLoaded', () => {
+  // Wait exactly for the stroke and shrink transitions to finish, then lift the veil
+  setTimeout(() => {
+    document.body.classList.add('loaded');
+  }, 2100);
+});
+
+// fade animations in house
+document.addEventListener('DOMContentLoaded', () => {
+  // Create a highly performant viewport intersection monitor
+  const scrollObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      // If the element crosses into the screen view area...
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+
+        // Stop watching this specific item so the animation only fires once
+        scrollObserver.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.12,         // Triggers exactly when 12% of the component is visible
+    rootMargin: "0px 0px -40px 0px" // Triggers slightly before hitting the absolute edge for a smooth flow
+  });
+
+  // Automatically find and track every item using the custom reveal class
+  document.querySelectorAll('.scroll-reveal').forEach(element => {
+    scrollObserver.observe(element);
+  });
+});
 
 // Handle dynamic navigation layout changes on scroll safely 
 let lastScrollTop = 0;
@@ -27,15 +57,6 @@ window.addEventListener('scroll', () => {
     nav.classList.remove('hidden');
   }
   lastScrollTop = currentScrollTop;
-});
-
-// Remove loader mask safely on load
-const loader = document.querySelector(".loader");
-const loaderImg = document.querySelector(".img");
-
-window.addEventListener('load', () => {
-  if (loader) loader.classList.add("hide");
-  if (loaderImg) loaderImg.classList.add("ImgNone");
 });
 
 /* ==========================================================================
@@ -137,10 +158,10 @@ function makeMove(index) {
   if (gameBoard[index] === '' && !gameOver) {
     playClickSound();
 
-    gameBoard[index] = currentPlayer === 'Raju' 
-      ? '<img src="./assets/game-assets/raju.jpg" alt="Raju">' 
+    gameBoard[index] = currentPlayer === 'Raju'
+      ? '<img src="./assets/game-assets/raju.jpg" alt="Raju">'
       : '<img src="./assets/game-assets/shyam.jpg" alt="Shyam">';
-    
+
     cells[index].innerHTML = gameBoard[index];
 
     if (firstClick) {
@@ -183,7 +204,7 @@ function resetGame() {
   const buttons = document.getElementById('buttons');
   if (resultPopup) resultPopup.style.display = 'none';
   if (buttons) buttons.style.display = 'none';
-  
+
   currentPlayer = 'Raju';
   gameBoard.fill('');
   cells.forEach(cell => cell.innerHTML = '');
@@ -241,80 +262,6 @@ document.addEventListener("DOMContentLoaded", () => {
         messageBox.style.opacity = "1";
         messageBox.style.transform = "translateY(0)";
       }
-    });
-  }
-});
-
-/* ==========================================================================
-   Interactive Emoji Rating & AJAX Formspree Feedback System
-   ========================================================================== */
-document.addEventListener('DOMContentLoaded', () => {
-  const emojiButtons = document.querySelectorAll('.emoji-btn');
-  const emojiFeedbackInput = document.getElementById('emoji-feedback');
-  const feedbackForm = document.getElementById('formspree-feedback');
-  
-  const successPopup = document.getElementById('success-popup');
-  const errorPopup = document.getElementById('error-popup');
-  
-  const closeSuccessBtn = document.getElementById('close-success-btn');
-  const closeErrorBtn = document.getElementById('close-error-btn');
-
-  // Handle active class styles for Selected Feedback Emojis
-  emojiButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      emojiButtons.forEach(innerBtn => innerBtn.classList.remove('active'));
-      btn.classList.add('active');
-      
-      const ratingValue = btn.getAttribute('data-value');
-      if (emojiFeedbackInput) {
-        emojiFeedbackInput.value = ratingValue;
-      }
-    });
-  });
-
-  // Submit form via fetch to avoid full page redirection on feedback submission
-  if (feedbackForm) {
-    feedbackForm.addEventListener('submit', async (event) => {
-      event.preventDefault();
-      
-      const formData = new FormData(feedbackForm);
-      
-      try {
-        const response = await fetch(feedbackForm.action, {
-          method: 'POST',
-          body: formData,
-          headers: {
-            'Accept': 'application/json'
-          }
-        });
-        
-        if (response.ok) {
-          // Success Response
-          if (successPopup) successPopup.style.display = 'flex';
-          feedbackForm.reset();
-          emojiButtons.forEach(innerBtn => innerBtn.classList.remove('active'));
-          if (emojiFeedbackInput) emojiFeedbackInput.value = '';
-        } else {
-          // Bad response from server
-          if (errorPopup) errorPopup.style.display = 'flex';
-        }
-      } catch (error) {
-        // Network errors or timeout exceptions
-        if (errorPopup) errorPopup.style.display = 'flex';
-      }
-    });
-  }
-
-  // Modals closure control handlers
-  if (closeSuccessBtn && successPopup) {
-    closeSuccessBtn.addEventListener('click', () => {
-      successPopup.style.display = 'none';
-    });
-  }
-
-  if (closeErrorBtn && errorPopup) {
-    closeErrorBtn.addEventListener('click', () => {
-      errorPopup.style.display = 'none';
     });
   }
 });

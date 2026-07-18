@@ -167,7 +167,7 @@ html {
 body {
   font-family: var(--font-sans);
   line-height: 1.7;
-  color: var(--white);
+  color: var(--slate);
   background-color: #091930;
 }
 
@@ -188,169 +188,175 @@ img {
   display: block;
 }
 
-.loader {
+/* ==========================================================================
+   ELITE GEOMETRIC INITIAL SITE LOADER
+   ========================================================================== */
+
+#loader-screen {
   position: fixed;
-  width: 100%;
-  height: 100vh;
   top: 0;
   left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #0a192f;
+  /* Deep background layer color */
   z-index: 9999;
-  background: black;
   display: flex;
-  align-items: center;
   justify-content: center;
-  flex-direction: column;
-}
-
-.hide {
-  animation: hide 1s forwards ease-out;
-  animation-delay: 4.2s;
-}
-
-@keyframes hide {
-  100% {
-    top: -150%;
-  }
-}
-
-.loaderWrapper {
-  height: 90px;
-  overflow: hidden;
-}
-
-.loaderInner {
-  position: relative;
-  animation-name: languageSwitch;
-  animation-duration: 2s;
-  animation-fill-mode: forwards;
-  animation-delay: 2.5s;
-  display: flex;
   align-items: center;
-  flex-direction: column;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 400ms cubic-bezier(0.25, 1, 0.5, 1),
+    visibility 400ms cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-.loaderinside {
+/* The structural container scale animation */
+.loader-logo-wrapper {
+  width: 100px;
+  height: 100px;
   display: flex;
-  align-items: baseline;
-  width: auto;
-  width: 190px;
-  height: 90px;
+  justify-content: center;
+  align-items: center;
+  animation: scaleDownAndOut 300ms cubic-bezier(0.25, 1, 0.5, 1) 1.8s forwards;
 }
 
-.letter {
-  display: inline-block;
-  font-family: sans-serif;
-  font-size: 52px;
-  font-weight: 900;
-  color: white;
-  animation-name: letterAppears;
-  animation-duration: 1s;
-  animation-fill-mode: forwards;
-  width: 1px;
+#loader-logo {
+  width: 100%;
+  height: 100%;
+}
+
+/* --- THE VECTOR TRACING ANIMATION --- */
+#loader-logo path {
+  stroke-dasharray: 320;
+  stroke-dashoffset: 320;
+  animation: drawStroke 1.2s cubic-bezier(0.25, 1, 0.5, 1) 0.2s forwards;
+}
+
+/* The inner monogram text fade in */
+#loader-logo text {
+  opacity: 0;
+  transform: scale(0.8);
+  transform-origin: center;
+  animation: fadeInText 0.5s cubic-bezier(0.25, 1, 0.5, 1) 1.1s forwards;
+}
+
+/* State Trigger: Fades the entire dark curtain out */
+body.loaded #loader-screen {
+  opacity: 0;
   visibility: hidden;
-  animation-delay: 1.5s;
+  pointer-events: none;
 }
 
-.letterO {
-  background-color: white;
-  height: 40px;
-  border-radius: 20px;
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  animation-name: loader;
-  animation-duration: 1s;
-  animation-fill-mode: forwards;
-  border: 10px solid white;
-}
-
-.welcome {
-  font-family: sans-serif;
-  font-size: 52px;
-  font-weight: 900;
-  color: white;
-  height: 90px;
-  display: flex;
-  align-items: center;
-}
-
-@keyframes loader {
-  0% {
-    width: 1px;
-  }
-
-  60% {
-    background-color: white;
-    width: 100%;
-  }
-
-  90% {
-    background-color: var(--theme);
-  }
-
-  100% {
-    background-color: var(--theme);
-    width: 100%;
+/* --- ANIMATION TIMELINE KEYFRAMES --- */
+@keyframes drawStroke {
+  to {
+    stroke-dashoffset: 0;
   }
 }
 
-@keyframes letterAppears {
-  0% {
-    width: 1px;
-    transform: rotate(15deg);
-  }
-
-  100% {
-    width: 100%;
-    transform: rotate(0);
-    visibility: visible;
+@keyframes fadeInText {
+  to {
+    opacity: 1;
+    transform: scale(1);
   }
 }
 
-@keyframes languageSwitch {
-  0% {
-    bottom: 0;
+@keyframes scaleDownAndOut {
+  to {
+    transform: scale(0.7);
+    opacity: 0;
   }
+}
 
-  15% {
-    bottom: 0;
-  }
+/* ==========================================================================
+   SEQUENTIAL CONTENT REVEAL (THE REVEAL DELAYS)
+   ========================================================================== */
 
-  20% {
-    bottom: 90px;
-  }
+/* Add these classes directly onto your Hero Section Elements (e.g., h1, h2, p, button) */
+.reveal-item {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 600ms cubic-bezier(0.25, 1, 0.5, 1),
+    transform 600ms cubic-bezier(0.25, 1, 0.5, 1);
+}
 
-  35% {
-    bottom: 90px;
-  }
+/* Once body class changes, trigger the cascading step sequence */
+body.loaded .reveal-item {
+  opacity: 1;
+  transform: translateY(0);
+}
 
-  40% {
-    bottom: 180px;
-  }
+/* Fine-tuned individual cascade delay steps */
+body.loaded .reveal-delay-1 {
+  transition-delay: 200ms;
+}
 
-  55% {
-    bottom: 180px;
-  }
+body.loaded .reveal-delay-2 {
+  transition-delay: 350ms;
+}
 
-  60% {
-    bottom: 270px;
-  }
+body.loaded .reveal-delay-3 {
+  transition-delay: 500ms;
+}
 
-  75% {
-    bottom: 270px;
-  }
+body.loaded .reveal-delay-4 {
+  transition-delay: 650ms;
+}
 
-  80% {
-    bottom: 360px;
-  }
+body.loaded .reveal-delay-5 {
+  transition-delay: 800ms;
+}
 
-  95% {
-    bottom: 360px;
-  }
+/* ==========================================================================
+   VIVEK'S CUSTOM NATIVE SCROLL ANIMATION ENGINE
+   ========================================================================== */
 
-  100% {
-    bottom: 450px;
-  }
+/* The base utility class that prepares elements for animation */
+.scroll-reveal {
+  opacity: 0;
+  transition: opacity 700ms cubic-bezier(0.25, 1, 0.5, 1),
+    transform 700ms cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: transform, opacity;
+  /* Tells the GPU to optimize this layer */
+}
+
+/* --- ANIMATION VARIANTS (Add these alongside the base class) --- */
+
+.fade-up {
+  transform: translateY(35px);
+}
+
+.fade-down {
+  transform: translateY(-35px);
+}
+
+.fade-left {
+  transform: translateX(-35px);
+}
+
+.fade-right {
+  transform: translateX(35px);
+}
+
+.fade-in {
+  transform: scale(0.96);
+}
+
+.scroll-reveal.is-visible {
+  opacity: 1;
+  transform: translate(0) scale(1);
+}
+
+.delay-100 {
+  transition-delay: 100ms;
+}
+
+.delay-200 {
+  transition-delay: 200ms;
+}
+
+.delay-300 {
+  transition-delay: 300ms;
 }
 
 /* 3. TYPOGRAPHY */
@@ -361,7 +367,7 @@ h1,
   font-size: var(--fz-hero-title);
   line-height: 1.1;
   font-weight: 700;
-  color: var(--color-text-primary);
+  color: var(--lightest-slate);
   margin: .6rem 0 1.2rem 0;
 }
 
@@ -371,7 +377,7 @@ h2,
   font-family: var(--font-sans);
   font-size: var(--fz-heading-section);
   line-height: 1.5;
-  color: var(--color-text-primary);
+  color: var(--lightest-slate);
 }
 
 h1 u {
@@ -394,24 +400,14 @@ hr {
   border-radius: 5px;
 }
 
-p,
+/* p,
 .project__discription p,
 .visitor-text {
   font-family: var(--font-sans);
   font-size: var(--fz-body);
-  color: var(--color-text-secondary);
-  /* letter-spacing: .8px; */
-}
-
-/* .range {
-  margin: 0 0 1rem 0;
-  color: #656991;
-  font-family: var(--font-mono);
-  font-size: var(--font-size-sm);
-  text-transform: uppercase;
-  transform: skewX(-5deg);
-  font-family: Arial, Helvetica, sans-serif;
+  color: var(--slate);
 } */
+
 .range {
   margin-bottom: 15px;
   color: var(--light-slate);
@@ -495,14 +491,6 @@ a.inline-link {
 .highlight {
   color: var(--theme-2);
   font-weight: 600;
-}
-
-.mono {
-  font-family: var(--font-mono);
-}
-
-.sans {
-  font-family: var(--font-sans);
 }
 
 /* 4. NAVIGATION & HEADER */
@@ -662,7 +650,7 @@ header {
 }
 
 .header__info h4 {
-  color: var(--theme)
+  color: var(--green);
 }
 
 .header__info p {
@@ -780,9 +768,8 @@ ul.skills li:hover {
 
 .spa-content h3.cntent--head {
   line-height: 1.3;
-  color: white;
+  color: var(--slate);
   font-size: var(--fz-xxl);
-  /* font-family: var(--fz-heading); */
 }
 
 .content--subhead {
@@ -839,25 +826,21 @@ ul.skills li:hover {
   content: "";
   position: absolute;
   left: -36px;
-  /* perfectly centers over the spine */
   top: 4px;
   width: 12px;
   height: 12px;
   border-radius: 50%;
   background: var(--navy);
   border: 2px solid var(--green);
-  /* Bright accent pop */
   z-index: 5;
   transition: var(--transition);
 }
 
-/* The Content Body Wrapper */
 .edu-content {
   transition: var(--transition);
   position: relative;
 }
 
-/* Degree Title Styling */
 .edu-degree {
   font-family: var(--font-sans);
   font-size: var(--fz-heading-card);
@@ -868,17 +851,13 @@ ul.skills li:hover {
   transition: var(--transition);
 }
 
-/* Monospace Date Range Token */
 .edu-range {
   display: block;
   font-family: var(--font-mono);
   font-size: var(--fz-xs);
   color: var(--green);
-  /* margin-bottom: 5px; */
-  /* letter-spacing: 0.05em; */
 }
 
-/* Institution Description Text */
 .edu-institution {
   font-family: var(--font-sans);
   font-size: var(--fz-body);
@@ -890,7 +869,6 @@ ul.skills li:hover {
    INTERACTIVE MICROMOTIONS (HOVER EFFECTS)
    ========================================================================== */
 
-/* When hovering over an education card, the text glows slightly and the line node illuminates */
 .edu-card:hover .edu-degree {
   color: var(--green) !important;
 }
@@ -901,8 +879,11 @@ ul.skills li:hover {
   transform: scale(1.2);
 }
 
-/* Responsive adjustments to guarantee text scaling holds up on small phone views */
 @media (max-width: 480px) {
+  body {
+    font-size: var(--fz-body);
+  }
+
   .edu-timeline {
     margin-left: 10px;
     padding-left: 20px;
@@ -922,7 +903,6 @@ ul.skills li:hover {
   margin-bottom: 200px;
 }
 
-/* --- ADDED POSITION & Z-INDEX HERE TO FORCE TEXT TO THE FRONT --- */
 .project--right {
   text-align: right;
   grid-column-start: 6;
@@ -930,10 +910,8 @@ ul.skills li:hover {
   grid-row-start: 1;
   position: relative;
   z-index: 5;
-  /* Higher than the image stack */
 }
 
-/* --- ADDED POSITION & Z-INDEX HERE TO FORCE TEXT TO THE FRONT --- */
 .project--left {
   text-align: left;
   grid-column-start: 1;
@@ -941,7 +919,6 @@ ul.skills li:hover {
   grid-row-start: 1;
   position: relative;
   z-index: 5;
-  /* Higher than the image stack */
 }
 
 .project .project_content p.project__overline {
@@ -956,7 +933,7 @@ ul.skills li:hover {
   font-size: clamp(24px, 5vw, 28px);
   margin: 0 0 15px 0;
   line-height: 1.3;
-  color: white;
+  color: var(--lightest-slate);
 }
 
 /* --- ACTIVATED THE Z-INDEX WITH POSITION RELATIVE --- */
@@ -975,7 +952,6 @@ ul.skills li:hover {
   padding: 25px;
   background-color: var(--light-navy);
   color: var(--light-slate);
-  font-size: var(--fz-md);
 }
 
 .project__image {
@@ -1054,24 +1030,140 @@ ul.project__grid li:hover {
   transform: translateY(-2%);
 }
 
-rd .container--contact {
-  height: 100%;
+/* ==========================================================================
+   CONTACT SECTION (BRITTANY CHIANG MINIMALIST SIGNATURE STYLE)
+   ========================================================================== */
+
+#contact {
+  padding: var(--section-padding) 0;
+  max-width: 600px;
+  margin: 0 auto;
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
 }
 
-.container-git {
-  max-width: 50%;
-  text-align: center;
+/* Monospace Overline Accent Label */
+.contact__overline {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: var(--fz-md);
+  color: var(--green);
+  font-weight: 400;
+  margin-bottom: 20px;
+  letter-spacing: 0.05em;
+}
+
+/* Massive Impact Section Title */
+.contact__title {
+  font-family: var(--font-sans);
+  /* Dynamically scales seamlessly between 40px and 60px depending on user device */
+  font-size: clamp(40px, 5vw, 60px);
+  font-weight: 600;
+  color: var(--white) !important;
+  line-height: 1.1;
+  margin-bottom: 20px;
+}
+
+/* Clean Balanced Content Paragraph */
+.contact__description {
+  margin-bottom: 50px;
+}
+
+/* --- THE SIGNATURE OUTLINE ACCENT BUTTON --- */
+.contact__button {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: var(--fz-sm);
+  color: var(--green) !important;
+  background-color: transparent;
+  border: 1px solid var(--green);
+  border-radius: 4px;
+  padding: 1.25rem 1.75rem;
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* Soft luminous glow backdrop swap on button hover states */
+.contact__button:hover {
+  background-color: rgba(100, 255, 218, 0.1);
+  /* Translucent green hint backdrop */
+  transform: translateY(-3px);
+  /* Elegant upward micro-motion glide */
+  box-shadow: 0 4px 20px -5px rgba(100, 255, 218, 0.2);
+}
+
+.contact__button:active {
+  transform: translateY(-1px);
+}
+
+/* ==========================================================================
+   PORTFOLIO FOOTER SECTION (BRITTANY CHIANG RESPONSIVE STYLE)
+   ========================================================================== */
+
+footer {
   display: flex;
-  align-items: center;
-  justify-content: center;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 25px 0;
+  min-height: 70px;
+  text-align: center;
+  background-color: transparent;
 }
 
+/* --- DESKTOP STATE: HIDE THE SOCIAL MATRIX IN FOOTER --- */
+.footer__socials {
+  display: none;
+  /* Kept hidden on desktop since side tracks handle them */
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 15px;
+}
+
+.footer__socials a {
+  padding: 10px;
+  font-size: 20px;
+  color: var(--light-slate);
+  transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1),
+    color 0.2s ease;
+}
+
+/* --- THE SIGNATURE MINIMALIST CREDIT TEXT --- */
+.footer__credit {
+  color: var(--slate);
+  font-family: var(--font-mono);
+  font-size: var(--fz-xs);
+  line-height: 1;
+}
+
+.footer__credit a {
+  padding: 10px;
+  color: var(--slate);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer__credit a:hover {
+  color: var(--green);
+  /* Highlights text smoothly on cursor hover */
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN BREAKPOINT INTERACTION
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  .footer__socials {
+    display: flex;
+    transform: translateX(-10px);
+  }
+}
+
+/* Game */
 main {
   display: flex;
   flex-direction: column;
@@ -1236,7 +1328,7 @@ button:hover::before {
 }
 
 i {
-  color: var(--theme-2);
+  /* color: var(--theme-2); */
   transition: var(--transition);
   font-size: 1.5rem;
 }
@@ -1355,7 +1447,6 @@ i:hover {
 
 .project__inner .project__discription p {
   font-family: var(--font-sans);
-  font-size: var(--fz-body);
   line-height: 1.5;
   margin: 10px 0;
   color: var(--paragraph);
@@ -1453,126 +1544,6 @@ i:hover {
   position: absolute;
   left: 0px;
   color: var(--green);
-}
-
-/* Feedback Container */
-.feedbck-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-}
-
-.feedback-container h2 {
-  margin-bottom: 20px;
-  color: #16a591;
-  text-align: center;
-}
-
-.emoji-buttons {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  margin-bottom: 20px;
-}
-
-.emoji-btn {
-  background-color: #16A59166;
-  border-radius: 10px;
-  color: #16a591;
-  padding: 5px 10px;
-  font-size: var(--font-size-xs);
-  cursor: pointer;
-  transition: all 0.3s ease;
-  display: flex;
-  gap: .3rem;
-  align-items: center;
-}
-
-.emoji {
-  font-size: var(--font-size-xl);
-}
-
-.emoji-expression {
-  display: none;
-  font-size: var(--font-size-sm);
-  color: #16a591;
-  margin-left: 5px;
-  opacity: 0;
-  transition: opacity 0.5s ease-in-out;
-  font-weight: 500;
-}
-
-.emoji-btn:hover {
-  color: #091930;
-}
-
-.feedback-input {
-  display: none;
-  margin-top: 20px;
-  opacity: 0;
-  transition: opacity 0.5s ease-in-out;
-}
-
-textarea {
-  width: calc(100% - 22px);
-  height: 100px;
-  border: 2px solid #16a591;
-  border-radius: 5px;
-  padding: 10px;
-  font-size: var(--font-size-base);
-  background-color: #091930;
-  color: white;
-  outline: none;
-  transition: all 400ms ease;
-}
-
-textarea:hover {
-  border: 2px solid #16A59152;
-}
-
-.submit-feedback-btn {
-  margin-top: 10px;
-  color: white;
-  cursor: pointer;
-  font-size: var(--font-size-base);
-}
-
-.form-btn-box {
-  width: 100%;
-  display: grid;
-  place-items: center;
-}
-
-.feedback-popup,
-.error-popup {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.7);
-  display: none;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-}
-
-.feedback-popup-content {
-  background-color: #091930;
-  color: #16a591;
-  padding: 30px;
-  border-radius: 10px;
-  text-align: center;
-  width: 300px;
-}
-
-.feedback-popup-content button {
-  margin-top: .5rem;
-}
-
-.feedback-popup .popup-content {
-  background-color: #16a591;
 }
 
 /* 7. MEDIA QUERIES */
@@ -1785,58 +1756,127 @@ textarea:hover {
   .edu-holder-top {
     flex-direction: column;
   }
+}
 
-  .project-holder {
-    grid-template-columns: repeat(auto-fit, minmax(6rem, 80%));
-    grid-template-rows: repeat(7, 20rem);
-    justify-content: center;
-  }
+@media (max-width: 900px) {
 
   .project {
-    border-radius: 5px;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    align-items: center;
+    border-radius: 4px;
     overflow: hidden;
-    margin-bottom: 2rem;
-    border: .1px solid var(--lightest-slate);
+    position: relative;
+    border: 1px solid var(--lightest-navy);
+    box-shadow: 0 10px 30px -15px var(--navy-shadow);
+    margin-bottom: 1rem;
   }
 
+  /* --- CRITICAL FIX: FORCING BOTH COLUMNS TO FILL THE FULL CARD --- */
   .project--right,
   .project--left {
-    text-align: left;
-    grid-column-start: 1;
-    grid-column-end: 13;
-    grid-row-start: 1;
-  }
-
-  .project_content {
-    background: rgba(0, 0, 0, 0.6);
-    backdrop-filter: blur(4px);
-    padding: 1rem 2rem;
-  }
-
-  .project__image {
-    z-index: -2;
-    width: 100%;
+    grid-column: 1 / -1;
+    grid-row: 1 / -1;
+    text-align: left !important;
+    /* Uniform left alignment on mobile views */
+    z-index: 5;
     height: 100%;
   }
 
-  .project_content .project__discription {
-    background: transparent;
-    box-shadow: none;
-    padding: 0;
-    color: #42445A;
+  /* The Text Container Content Wrapper */
+  .project_content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    padding: 40px 30px;
+    /* Rich glassmorphic dark tint directly over the image track */
+    background-color: rgba(10, 25, 47, 0.85);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
   }
 
+  /* --- THE FLOATING BACKGROUND IMAGE --- */
+  .project__image {
+    grid-column: 1 / -1;
+    grid-row: 1 / -1;
+    height: 100%;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+    opacity: 0.25;
+    /* Blends beautifully deep into the background canvas */
+  }
+
+  .project__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* Forces image to stretch across card without distortion */
+  }
+
+  /* Kill the hover overlay blocks on mobile so they do not block touch actions */
+  .project__image::before {
+    display: none !important;
+  }
+
+  /* --- POLISHED SPACING & LEGIBILITY HIERARCHY --- */
+
+  .project_content p.project__overline {
+    margin-bottom: 8px;
+    color: var(--green);
+    /* Small pop of accent color at the top */
+    font-family: var(--font-mono);
+    font-size: var(--fz-xs);
+  }
+
+  .project_content .project__title {
+    margin-bottom: 15px;
+    /* Clean air below the title block */
+    font-size: var(--fz-xl);
+  }
+
+  .project_content .project__discription {
+    background: transparent !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    color: var(--slate) !important;
+    line-height: 1.5;
+    margin-bottom: 20px;
+  }
+
+  /* Structural lists alignments */
   .project_content .project__tech_list {
-    justify-content: left;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 10px;
+    margin-bottom: 20px;
+    list-style: none;
+    padding: 0;
+  }
+
+  .project_content .project__tech_list li {
+    color: var(--lightest-slate);
+    font-family: var(--font-mono);
+    font-size: var(--fz-xs);
   }
 
   .project_content .web-icons {
-    justify-content: left;
+    display: flex;
+    justify-content: flex-start;
+    gap: 15px;
+    color: var(--lightest-slate);
   }
 
-  /* .project-bottom-box h3 {
-    font-size: 1rem;
-  } */
+  .project_content .web-icons a {
+    color: var(--lightest-slate);
+    transition: var(--transition);
+  }
+
+  .project_content .web-icons a:hover {
+    color: var(--green);
+  }
 
   .container-git {
     max-width: 85%;
@@ -1848,6 +1888,7 @@ textarea:hover {
     flex-direction: column;
     gap: 20px;
   }
+
 
   .spa-nav {
     width: 100%;
