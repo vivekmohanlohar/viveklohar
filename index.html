@@ -152,134 +152,161 @@
     </div>
   </header>
 
-  <!-- ///// About section ///// -->
+  <!-- ///// About Section ///// -->
   <section id="about">
     <div class="container container--about">
-      <div class="col-info">
-        <h2 class="numbered_heading" data-aos="fade"><span class="sr_no">01.</span> About</h2>
-        <p data-aos="fade">
-          I believe engineering is more than solving technical problems—it's about staying curious, adapting to change,
-          and continuously learning. Every new technology, market trend, or engineering challenge is an opportunity to
-          grow and create something better.
-          <br><br>
 
-          Over the years, I've explored different technologies beyond my academic curriculum because I enjoy
-          understanding how things work and how they can be applied to solve real-world problems. From electrical
-          engineering and renewable energy to web development and emerging technologies, every experience has helped me
-          think more practically and broaden my perspective.
-          <br><br>
+      <!-- Left Column: Typography Content & Grid Skills -->
+      <div class="col-info" data-aos="fade">
+        <h2 class="numbered_heading"><span class="sr_no">01.</span> About Me</h2>
 
-          Working with different people has taught me that great engineering is rarely an individual effort. I enjoy
-          collaborating with teams, sharing ideas, learning from experienced professionals, and contributing wherever I
-          can create value.
-          <br><br>
+        <div class="about-text-content">
+          <p>
+            Hello! My name is Vivek and I enjoy engineering things that power both the physical and digital world. My
+            interest in electrical systems started back in 2019 during my early student days when I first began
+            tinkering with basic circuit components — turns out, figuring out how a tiny current flows through a path
+            sparked a deep curiosity about how large-scale power infrastructure operates.
+          </p>
+          <p>
+            Fast-forward to today, and my engineering path has evolved from hands-on laboratory setups during my diploma
+            to designing advanced power architectures for my Bachelor’s degree. Instead of just studying formulas out of
+            a textbook, I focus my energy on where classical electrical engineering meets modern digital automation and
+            sustainable power grids.
+          </p>
+          <p>
+            Rather than sticking strictly to a traditional academic route, I spend my time actively exploring clean
+            energy alternatives, smart distribution models, and industrial-grade software design tools to build
+            solutions that are practical, efficient, and future-proof.
+          </p>
+          <p>
+            Here are a few technologies, systems, and fields I’ve been actively building, designing, or researching
+            recently:
+          </p>
+        </div>
 
-          I believe the best engineers never stop learning. That's why I constantly explore new technologies, follow
-          industry developments, and build skills that help me stay relevant in a rapidly evolving engineering world.
-          <br><br>
-
-        </p>
-        <br />
-        <!-- <ul class="skills" data-aos="fade">
-          <li>Solar Energy Systems</li>
-          <li>Electrical Systems</li>
-          <li>MATLAB/Simulink</li>
-        </ul> -->
+        <!-- Perfect 2-Column Grid List -->
+        <ul class="skills">
+          <li>Solar SketchUp (3D Layouts)</li>
+          <li>Eplan Electric P8</li>
+          <li>BESS (Battery Storage)</li>
+          <li>Hydrogen Electricity</li>
+        </ul>
       </div>
 
+      <!-- Right Column: Interactive Stacking Image Frame -->
       <div class="col-img" data-aos="fade">
-        <div class="about-img">
-          <img src="./assets/images/profile.jpg" alt="Vivek Lohar - Electrical Engineer">
+        <div class="styled-pic-wrapper">
+          <div class="img-element-frame">
+            <img src="./assets/images/profile.jpg" alt="Vivek Lohar - Electrical Engineer">
+          </div>
         </div>
       </div>
+
     </div>
   </section>
 
-  <!-- Experience section starts here -->
-  <section id="experience" data-aos="fade">
-    <div class="container--exp">
+  <!-- ///// Experience Section ///// -->
+  <section id="experience">
+    <div class="container--exp" data-aos="fade">
 
       <h2 class="numbered_heading">
-        <span class="sr_no">02. </span>Experience
+        <span class="sr_no">02. </span>Where I’ve Worked
       </h2>
 
-      <div class="spa-box">
+      <div class="jobs-inner-wrapper">
 
-        <div class="spa-nav">
-          <ul>
-            <li><a href="#tab-1" class="menu-button spa--active">Green Ideas</a></li>
-            <li><a href="#tab-2" class="menu-button">Ecofriend</a></li>
-            <li><a href="#tab-3" class="menu-button">Chandanshesh</a></li>
-          </ul>
+        <!-- Left Tab Navigation Track (Centered on Mobile) -->
+        <div class="jobs-tab-list" role="tablist" aria-label="Job placements">
+          <div class="job-tab active-tab" id="tab-0" role="tab" aria-selected="true" aria-controls="panel-0"
+            data-index="0" tabindex="0">Green Ideas</div>
+          <div class="job-tab" id="tab-1" role="tab" aria-selected="false" aria-controls="panel-1" data-index="1"
+            tabindex="0">Ecofriend</div>
+          <div class="job-tab" id="tab-2" role="tab" aria-selected="false" aria-controls="panel-2" data-index="2"
+            tabindex="0">Chandanshesh</div>
+          <div class="job-tab" id="tab-3" role="tab" aria-selected="false" aria-controls="panel-3" data-index="3"
+            tabindex="0">Automation Alpha</div>
+
+          <!-- Sliding indicator bar -->
+          <div class="active-highlight-bar"></div>
         </div>
 
-        <div class="spa-content" data-aos="fade">
+        <!-- Right Panel Content Container -->
+        <div class="jobs-content-panels">
 
-          <!-- Green Ideas -->
-          <div id="tab-1" class="tab-content spa--active">
-
-            <h3 class="content--head">Business Development Manager <a alt="Green Ideas" href="https://www.greenideas.in"
-                class="inline-link">@Green Ideas</a></h3>
-            <p class="range">June 2025 – May 2026</p>
-
-            <ul>
+          <!-- Panel 0: Green Ideas -->
+          <div class="panel-item active-panel" id="panel-0" role="tabpanel" aria-labelledby="tab-0" aria-hidden="false">
+            <h3 class="job-title-header">
+              Business Development Manager
+              <span class="company-accent">@ <a href="https://www.greenideas.in" target="_blank" rel="noreferrer"
+                  class="inline-link">Green Ideas</a></span>
+            </h3>
+            <p class="job-date-range">June 2025 – May 2026</p>
+            <ul class="job-description-list">
               <li>Managed residential rooftop solar projects by coordinating customer consultations, site visits,
                 documentation, project planning, and commissioning activities.</li>
-
               <li>Researched and evaluated solar modules, inverters, mounting structures, and other components by
                 comparing technical specifications, quality, and pricing to support procurement decisions.</li>
-
               <li>Contributed to improving rooftop solar mounting structures by providing practical inputs on
                 installation methods, durability, and long-term system reliability.</li>
-
               <li>Designed and developed the company's official website while supporting digital initiatives to
                 strengthen its online presence and customer engagement.</li>
             </ul>
-
           </div>
 
-          <!-- Ecofriend -->
-          <div id="tab-2" class="tab-content">
-
-            <h3 class="content--head">Project Engineer <a alt="Ecofriend Solar Solutions"
-                href="https://www.viveklohar.in" class="inline-link">@Ecofriend Solar Solutions</a></h3>
-            <p class="range">May 2024 – July 2024</p>
-
-            <ul>
+          <!-- Panel 1: Ecofriend -->
+          <div class="panel-item" id="panel-1" role="tabpanel" aria-labelledby="tab-1" aria-hidden="true">
+            <h3 class="job-title-header">
+              Project Engineer (Intern)
+              <span class="company-accent">@ <a href="https://www.ecofriend.in" target="_blank" rel="noreferrer"
+                  class="inline-link">Ecofriend Solar Solutions</a></span>
+            </h3>
+            <p class="job-date-range">May 2024 – July 2024</p>
+            <ul class="job-description-list">
               <li>Assisted in site surveys, system measurements, installation planning, commissioning, and quality
                 inspections for residential rooftop solar projects.</li>
-
               <li>Gained practical knowledge of solar PV components including modules, inverters, mounting structures,
                 protection devices, cables, and electrical accessories.</li>
-
               <li>Built a strong technical foundation in residential solar installation practices, equipment selection,
                 preventive maintenance, and project execution.</li>
             </ul>
-
           </div>
 
-          <!-- Chandanshesh -->
-          <div id="tab-3" class="tab-content">
-
-            <h3 class="content--head">Electrical Engineering Intern <a alt="Chandanshesh"
-                href="https://www.chandanshesh.com" class="inline-link">@Chandanshesh Heavy Electricals</a></h3>
-            <p class="range">June 2023 – July 2023</p>
-
-            <ul>
+          <!-- Panel 2: Chandanshesh -->
+          <div class="panel-item" id="panel-2" role="tabpanel" aria-labelledby="tab-2" aria-hidden="true">
+            <h3 class="job-title-header">
+              Electrical Engineering Intern
+              <span class="company-accent">@ <a href="https://www.chandanshesh.com" target="_blank" rel="noreferrer"
+                  class="inline-link">Chandanshesh Heavy Electricals</a></span>
+            </h3>
+            <p class="job-date-range">June 2023 – July 2023</p>
+            <ul class="job-description-list">
               <li>Participated in transformer inspection, testing, and quality assurance activities to verify
                 performance and compliance with workshop standards.</li>
-
               <li>Observed transformer manufacturing, repair processes, fault diagnosis, preventive maintenance, and
                 industrial safety practices.</li>
-
               <li>Worked alongside experienced technicians to understand transformer construction, assembly procedures,
                 testing methods, and workshop operations.</li>
             </ul>
+          </div>
 
+          <!-- Panel 3: Automation Alpha -->
+          <div class="panel-item" id="panel-3" role="tabpanel" aria-labelledby="tab-3" aria-hidden="true">
+            <h3 class="job-title-header">
+              Control Systems &amp; Automation Intern
+              <span class="company-accent">@ <a href="#" class="inline-link">Automation Alpha Systems</a></span>
+            </h3>
+            <p class="job-date-range">January 2023 – March 2023</p>
+            <ul class="job-description-list">
+              <li>Assisted in building custom wiring configurations and testing relay control sequence behaviors within
+                specialized industrial switchgear bays.</li>
+              <li>Configured basic ladder logic monitoring diagnostics to continuously scan sensory voltage
+                distributions across simulated microgrid nodes.</li>
+              <li>Documented operational layout diagrams and structural specification parameters to aid physical
+                hardware field technicians during automation deployments.</li>
+            </ul>
           </div>
 
         </div>
-
       </div>
 
     </div>
@@ -562,7 +589,8 @@
   <section class="other_projects">
     <div class="container container--other_projects">
       <h2 data-aos="fade">Noteworthy Projects</h2>
-      <p data-aos="fade" class="inline_link">Explore a diverse range of projects along with their documentation.</p>
+      <p data-aos="fade" class="other_projects-subheading">Explore a diverse range of projects along with their
+        documentation.</p>
 
       <ul class="project__grid">
 
@@ -748,48 +776,103 @@
     </div>
   </section>
 
-  <!-- Education section starts here -->
-  <section id="education" data-aos="fade">
+  <!-- Precision Architectural Timeline Section -->
+  <section id="education">
     <div class="container--exp">
-      <h2 class="numbered_heading" data-aos="fade">
+
+      <h2 class="numbered_heading scroll-reveal fade-up">
         <span class="sr_no">04. </span>Education
       </h2>
 
-      <div class="edu-timeline" data-aos="fade">
+      <div class="edu-minimal-axis scroll-reveal">
 
-        <!-- Card 1 -->
-        <div class="edu-card">
-          <div class="edu-dot"></div>
-          <div class="edu-content">
-            <h3 class="edu-degree">Bachelor's Degree in Electrical (Electronics & Power) Engineering</h3>
-            <span class="edu-range">Dec 2022 - 2027</span>
-            <p class="edu-institution">Mauli Group of Institution's College of Engineering and Technology, Shegaon</p>
+        <!-- Continuous architectural vertical layout axis lines -->
+        <div class="axis-base"></div>
+        <div class="axis-progress"></div>
+
+        <!-- THE TOP TERMINUS: Graduation Cap -->
+        <div class="axis-endpoint axis-top">
+          <svg class="endpoint-icon" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="1.5"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path
+              d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z" />
+            <path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5" />
+            <path d="M21.5 12v6" />
+          </svg>
+        </div>
+
+        <!-- ENTRY 1: CURRENT BACHELOR'S DEGREE -->
+        <div class="edu-node current-entry">
+          <!-- Premium Minimalist Pulsing Dot Marker -->
+          <div class="node-marker status-pulsing-dot">
+            <div class="core-dot"></div>
+          </div>
+
+          <div class="node-body">
+            <span class="node-meta">Dec 2022 — Present</span>
+            <h3 class="node-title">Bachelor of Engineering in Electrical (Electronics &amp; Power) Engineering</h3>
+            <p class="node-institution">Mauli Group of Institution's College of Engineering and Technology, Shegaon</p>
+
+            <!-- Low-profile Floating Tooltip Anchor Trigger -->
+            <div class="tooltip-wrapper" tabindex="0">
+              <span class="status-indicator-text">Status: In Progress</span>
+
+              <!-- Exact, Rectangular Narrative Floating Tooltip -->
+              <div class="floating-system-tooltip position-top-left">
+                <span class="tooltip-header">// SYSTEM STATUS</span>
+                <p class="tooltip-description">Core engineering coursework is completely finished. Currently completing
+                  remaining final examinations for expected graduation in early 2027.</p>
+              </div>
+            </div>
           </div>
         </div>
 
-        <!-- Card 2 -->
-        <div class="edu-card">
-          <div class="edu-dot"></div>
-          <div class="edu-content">
-            <h3 class="edu-degree">Diploma in Electrical Engineering</h3>
-            <span class="edu-range">July 2019 - Oct 2022</span>
-            <p class="edu-institution">Government Polytechnic Khamgaon</p>
+        <!-- ENTRY 2: DIPLOMA -->
+        <div class="edu-node past-entry">
+          <div class="node-marker static-dot">
+            <div class="core-dot"></div>
+          </div>
+          <div class="node-body">
+            <span class="node-meta">July 2019 — Oct 2022</span>
+            <h3 class="node-title">Diploma in Electrical Engineering</h3>
+            <p class="node-institution">Government Polytechnic Khamgaon</p>
           </div>
         </div>
 
-        <!-- Card 3 -->
-        <div class="edu-card">
-          <div class="edu-dot"></div>
-          <div class="edu-content">
-            <h3 class="edu-degree">10th | SSC</h3>
-            <span class="edu-range">June 2019</span>
-            <p class="edu-institution">Zilha Parishad High School and Junior College (Boys), Khamgaon</p>
+        <!-- ENTRY 3: 10TH MATRICULATION -->
+        <div class="edu-node past-entry">
+          <div class="node-marker static-dot">
+            <div class="core-dot"></div>
+          </div>
+          <div class="node-body">
+            <span class="node-meta">June 2019</span>
+            <h3 class="node-title">10th | SSC Matriculation</h3>
+            <p class="node-institution">Zilha Parishad High School and Junior College (Boys), Khamgaon</p>
+          </div>
+        </div>
+
+        <!-- THE BASE TERMINUS: Academic Origin Anchor (Minimalist Book Icon) -->
+        <div class="axis-endpoint axis-bottom">
+          <div class="tooltip-wrapper" tabindex="0">
+            <svg class="endpoint-icon book-icon" viewBox="0 0 24 24" fill="none" stroke="var(--slate)"
+              stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+              <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
+            </svg>
+
+            <!-- Matching Theme Bottom Origin Floating Tooltip -->
+            <div class="floating-system-tooltip position-bottom-anchor">
+              <span class="tooltip-header">// MILESTONE LEVEL_01</span>
+              <p class="tooltip-description">September 2003: Successfully out-swam 300 million fierce candidates to take
+                1st place. Lifecycle initiated.</p>
+            </div>
           </div>
         </div>
 
       </div>
     </div>
   </section>
+
   <br><br>
   <!-- Personalized Contact Section -->
   <section id="contact" class="scroll-reveal fade-up">

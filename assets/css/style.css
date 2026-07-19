@@ -479,13 +479,45 @@ a.footer_greeting {
   text-align: center;
 }
 
-a.inline-link {
-  display: inline-block;
-  text-decoration: none;
-  text-decoration-skip-ink: auto;
-  position: relative;
-  transition: var(--transition);
+/* ==========================================================================
+   SMOOTH LEFT-TO-RIGHT INLINE LINK ANIMATION
+   ========================================================================== */
+span.company {
   color: var(--green);
+}
+
+.inline-link {
+  display: inline-block;
+  position: relative;
+  color: var(--green);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+/* The hidden underline baseline */
+.inline-link::after {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: .7px;
+  bottom: 1px;
+  left: 0;
+  background-color: var(--green);
+  transform: scaleX(0);
+  transform-origin: bottom left;
+  transition: transform 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+.inline-link:hover {
+  color: var(--green);
+  outline: 0;
+}
+
+.inline-link:hover::after,
+.inline-link:focus::after {
+  transform: scaleX(1);
 }
 
 .highlight {
@@ -658,239 +690,721 @@ header {
 }
 
 /* 5. LAYOUT & SECTIONS */
+/* ==========================================================================
+   EXACT INTERACTIVE ABOUT SECTION STYLES
+   ========================================================================== */
 
-#about,
-#education {
-  display: flex;
-  align-items: center;
-  overflow: hidden;
+#about {
+  /* max-width: 900px; */
+  margin: 0 auto;
+  /* Section height is completely dictated by natural content flow */
 }
 
 .container--about {
-  height: 100%;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(50%, 1fr));
+  grid-template-columns: 3fr 2fr;
+  /* Classic structural layout split */
+  gap: 50px;
+  align-items: flex-start;
+}
+
+/* --- MICRO-SPACED TYPOGRAPHY SCALES --- */
+.about-text-content p {
+  font-family: var(--font-sans);
+  font-size: var(--fz-md);
+  color: var(--slate);
+  line-height: 1.6;
+  margin: 0 0 15px 0;
+  /* Standard paragraph line drops */
+}
+
+.about-text-content p:last-child {
+  margin-bottom: 0;
+}
+
+/* --- RIGID 2-COLUMN SKILLS DISPLAY --- */
+ul.skills {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(140px, 200px));
+  gap: 0 10px;
+  padding: 0;
+  margin: 20px 0 0 0;
+  list-style-type: none;
 }
 
 ul.skills li {
   position: relative;
-  padding-left: 10px;
-  margin-bottom: 5px;
-  font-size: .8rem;
+  padding-left: 15px;
+  margin-bottom: 10px;
+  font-family: var(--font-mono);
+  font-size: var(--fz-xs);
   font-weight: 500;
-  letter-spacing: .4px;
-}
-
-ul.skills li {
-  color: var(--paragraph);
+  color: var(--slate);
+  letter-spacing: 0.3px;
+  transition: color 0.2s ease;
 }
 
 ul.skills li::before {
   content: "▹";
   position: absolute;
-  left: 0px;
+  left: 0;
+  top: 0;
   color: var(--green);
-}
-
-ul.skills {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  max-width: 80%;
+  line-height: 12px;
 }
 
 ul.skills li:hover {
-  border-color: var(--theme);
-  color: var(--theme);
-}
-
-.about-img {
-  width: 60%;
-  border-radius: 5px;
-  position: relative;
-  transition: all .6s ease;
-}
-
-.about-img::before,
-.about-img::after {
-  height: 100%;
-  width: 100%;
-  top: 0;
-  left: 0;
-  transition: 400ms ease;
-}
-
-.about-img::before {
-  transform: translate(10%, 10%);
-  border: 2px solid var(--theme);
-  z-index: -1;
-  border-radius: 3px;
-}
-
-.about-img::after {
-  background: var(--theme-2);
-  opacity: .5;
-  z-index: 3;
-}
-
-.about-img img {
-  border-radius: 2px;
-  z-index: 2;
-}
-
-.col-img {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.about-img:hover::before {
-  transform: translate(7%, 7%);
-}
-
-.about-img:hover::after {
-  display: none;
-}
-
-.container--exp {
-  width: 60%;
-  margin: auto;
-}
-
-.spa-box {
-  display: flex;
-  gap: 5%;
-}
-
-.spa-content {
-  width: 100%;
-}
-
-.spa-content h3.cntent--head {
-  line-height: 1.3;
-  color: var(--slate);
-  font-size: var(--fz-xxl);
-}
-
-.content--subhead {
-  display: inline-block;
-  text-decoration: none;
-  text-decoration-skip-ink: auto;
-  position: relative;
-  transition: var(--transition);
   color: var(--green);
 }
 
 /* ==========================================================================
-   EDUCATION TIMELINE SECTION (BRITTANY CHIANG STYLE)
+   BRITTANY-STYLE IMAGE LAYER ENGINE (FIXED STACKING & Z-INDEX)
    ========================================================================== */
 
-#education {
-  padding: var(--section-padding);
-  max-width: 900px;
-  margin: 0 auto;
+.col-img {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
 }
 
-.edu-timeline {
+/* The Root Stacking Context Parent Container */
+.styled-pic-wrapper {
   position: relative;
-  margin: 40px 0 0 20px;
-  padding-left: 30px;
+  width: 100%;
+  max-width: 300px;
+  z-index: 1;
+  /* Sets foundation scope */
 }
 
-/* The Continuous Timeline Spine */
-.edu-timeline::before {
+/* LAYER 1 (INNER): Base Graphic Box Holding Image */
+.img-element-frame {
+  position: relative;
+  width: 100%;
+  border-radius: 5px;
+  background-color: var(--green);
+  /* Provides the background fill color for blending */
+  z-index: 10;
+  /* Ensures the graphic sits above the background border */
+  transform: translate(0, 0);
+  transition: transform 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+.img-element-frame img {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 5px;
+  mix-blend-mode: multiply;
+  /* Blends gray values directly into the green background */
+  filter: grayscale(100%) contrast(1);
+  transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
+  z-index: 11;
+}
+
+/* LAYER 2 (TOP OVERLAY): Micro-thin overlay to enforce true theme tinting */
+.img-element-frame::before {
   content: "";
   position: absolute;
-  top: 5px;
+  top: 0;
   left: 0;
-  width: 2px;
+  width: 100%;
   height: 100%;
-  background: var(--lightest-navy);
-  /* Subtle line that doesn't distract */
-  transition: var(--transition);
+  background-color: var(--navy);
+  mix-blend-mode: screen;
+  /* Harmonizes bright value ranges */
+  opacity: 0.1;
+  border-radius: 5px;
+  z-index: 12;
+  /* Locks right on top of image face */
+  transition: opacity 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 
-/* Individual Timeline Block */
-.edu-card {
+/* LAYER 3 (BACKGROUND FRAME): Offset Wireframe Border Box */
+.styled-pic-wrapper::after {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 20px;
+  left: 20px;
+  border: 1px solid var(--green);
+  border-radius: 5px;
+  z-index: -1;
+  /* Pushed completely behind the inner image frame block */
+  transform: translate(0, 0);
+  transition: transform 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+/* --- PURE HOVER INTERACTIVE ACTIONS --- */
+
+/* 1. When wrapper is hovered, shift image slightly up and left */
+.styled-pic-wrapper:hover .img-element-frame {
+  transform: translate(-4px, -4px);
+  background-color: transparent;
+  /* Clear background fill to restore full colors */
+}
+
+/* 2. Completely dissolve all filters and blending modes */
+.styled-pic-wrapper:hover .img-element-frame img {
+  mix-blend-mode: normal;
+  filter: none;
+}
+
+/* 3. Drop down opacity of the overlay skin */
+.styled-pic-wrapper:hover .img-element-frame::before {
+  opacity: 0;
+}
+
+/* 4. Shift wireframe border box down and right to amplify separation */
+.styled-pic-wrapper:hover::after {
+  transform: translate(4px, 4px);
+}
+
+/* ==========================================================================
+   CROSS-PORT DEVICE VIEWPORT SYNC (RESPONSIVE STACKING)
+   ========================================================================== */
+
+@media (min-width: 768px) {
+  .col-img {
+    margin-top: 100px;
+  }
+}
+
+@media (max-width: 768px) {
+  .container--about {
+    grid-template-columns: 1fr;
+    /* Drop cleanly to a single column stack layout */
+    gap: 40px;
+  }
+
+  .col-img {
+    margin-top: 30px;
+  }
+
+  .styled-pic-wrapper {
+    max-width: 260px;
+    /* Keep alignment scaled gracefully on mobile devices */
+  }
+}
+
+/* ==========================================================================
+   ISOLATED CUSTOM EXPERIENCE DISPATCH ENGINE
+   ========================================================================== */
+
+#experience {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: var(--section-padding) 0;
+}
+
+.jobs-inner-wrapper {
+  display: flex;
+  align-items: flex-start;
+  gap: 30px;
+  min-height: 340px;
   position: relative;
-  margin-bottom: 45px;
-  transition: var(--transition);
 }
 
-.edu-card:last-child {
+/* --- VERTICAL TRACK LIST CONTAINER --- */
+.jobs-tab-list {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: max-content;
+  z-index: 3;
+  padding: 0;
+  margin: 0;
+  border-left: 2px solid var(--lightest-navy);
+}
+
+/* Decoupled custom div styles - immune to site-wide button styles */
+.job-tab {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 42px;
+  padding: 0 20px;
+  background-color: transparent;
+  color: var(--slate);
+  font-family: var(--font-mono);
+  font-size: var(--fz-xs);
+  text-align: left;
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+.job-tab:hover,
+.job-tab:focus {
+  color: var(--green);
+  background-color: var(--light-navy);
+  outline: none;
+}
+
+.job-tab.active-tab {
+  color: var(--green);
+}
+
+/* --- DYNAMIC TRANSITION INDICATOR BAR --- */
+.active-highlight-bar {
+  position: absolute;
+  top: 0;
+  left: -2px;
+  z-index: 10;
+  width: 2px;
+  height: 42px;
+  background-color: var(--green);
+  transform: translateY(0);
+  transition: transform 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+/* ==========================================================================
+   PANEL CONTENT BLOCK TYPOGRAPHY
+   ========================================================================== */
+
+.jobs-content-panels {
+  position: relative;
+  width: 100%;
+  flex-grow: 1;
+}
+
+.panel-item {
+  width: 100%;
+  height: auto;
+  opacity: 0;
+  display: none;
+}
+
+.panel-item.active-panel {
+  display: block;
+  opacity: 1;
+  animation: tabFadeInEffect 0.35s cubic-bezier(0.645, 0.045, 0.355, 1) forwards;
+}
+
+@keyframes tabFadeInEffect {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.job-title-header {
+  font-family: var(--font-sans);
+  font-size: var(--fz-xxl);
+  font-weight: 500;
+  line-height: 1.1;
+  color: var(--white);
+  margin: 0 0 4px 0;
+  /* Tight layout gap down to date element */
+}
+
+.company-accent {
+  color: var(--green);
+}
+
+.job-date-range {
+  font-family: var(--font-mono);
+  font-size: var(--fz-xs);
+  color: var(--light-slate);
+  margin: 0 0 25px 0;
+}
+
+/* --- GEOMETRIC LIST BULLETS --- */
+.job-description-list {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.job-description-list li {
+  position: relative;
+  padding-left: 20px;
+  font-family: var(--font-sans);
+  font-size: var(--fz-md);
+  color: var(--slate);
+  line-height: 1.5;
+  margin-bottom: 12px;
+}
+
+.job-description-list li:last-child {
   margin-bottom: 0;
 }
 
-/* The Interactive Timeline Node (Circle) */
-.edu-dot {
-  content: "";
+.job-description-list li::before {
+  content: "▹";
   position: absolute;
-  left: -36px;
-  top: 4px;
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: var(--navy);
-  border: 2px solid var(--green);
-  z-index: 5;
-  transition: var(--transition);
+  left: 0;
+  top: 2px;
+  color: var(--green);
+  font-size: var(--fz-sm);
+  line-height: 16px;
 }
 
-.edu-content {
-  transition: var(--transition);
+/* ==========================================================================
+   MOBILE VIEW RESYNC & HORIZONTAL CENTERING ENGINE
+   ========================================================================== */
+
+@media (max-width: 600px) {
+  .jobs-inner-wrapper {
+    flex-direction: column;
+    gap: 25px;
+  }
+  
+  .jobs-tab-list {
+    flex-direction: row;
+    width: max-content;
+    max-width: 100%;
+    margin: 0 auto;
+    justify-content: flex-start; 
+    border-left: none;
+    border-bottom: 2px solid var(--lightest-navy);
+    overflow-x: auto;
+    scrollbar-width: none;
+  
+  }
+
+  .jobs-tab-list::-webkit-scrollbar {
+    display: none;
+  }
+
+  .job-tab {
+    height: 42px;
+    width: 130px;
+    min-width: 130px;
+    padding: 0;
+    text-align: center;
+    justify-content: center;
+  }
+
+  /* Repositions baseline marker bar onto horizontal X-Axis track track lines */
+  .active-highlight-bar {
+    top: auto;
+    bottom: -2px;
+    left: 0;
+    width: 130px;
+    /* Uniformly matches new tab element width bounds */
+    height: 2px;
+    transform: translateX(0);
+  }
+}
+
+/* ==========================================================================
+   PRODUCTION MINIMALIST ARCHITECTURAL TIMELINE STYLES
+   ========================================================================== */
+
+#education {
+  padding: var(--section-padding) 0;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.edu-minimal-axis {
+  position: relative;
+  margin: 45px 0 45px 25px;
+  padding-left: 30px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* --- VERTICAL BACKBONE TRACK LINES --- */
+.axis-base {
+  position: absolute;
+  top: -20px;
+  left: 0;
+  width: 1px;
+  height: calc(100% + 40px);
+  background-color: var(--lightest-navy);
+  z-index: 1;
+}
+
+.axis-progress {
+  position: absolute;
+  bottom: -20px;
+  left: 0;
+  width: 1px;
+  height: 0%;
+  background: var(--green);
+  box-shadow: 0 0 8px var(--green);
+  z-index: 2;
+  transition: height 2.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Tracking progress bar stops exactly at the designated 85% height index */
+.edu-minimal-axis.is-visible .axis-progress {
+  height: 85%;
+}
+
+/* --- GRID SYSTEM ENDPOINTS (CAP & BOOK) --- */
+.axis-endpoint {
+  position: absolute;
+  left: -15px;
+  z-index: 10;
+  background-color: var(--navy);
+  padding: 4px 0;
+}
+
+.axis-top {
+  top: -45px;
+}
+
+.axis-bottom {
+  bottom: -45px;
+}
+
+.endpoint-icon {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  transition: stroke 0.2s ease;
+}
+
+/* --- AXIS DATA MARKERS (DOTS) --- */
+.node-marker {
+  position: absolute;
+  left: -44px;
+  /* Centers dot perfectly over the 1px axis track line */
+  top: 4px;
+  width: 28px;
+  height: 28px;
+  background-color: var(--navy);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 5;
+}
+
+.core-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  transition: background-color 0.3s ease;
+}
+
+.static-dot .core-dot {
+  background-color: var(--lightest-slate);
+}
+
+.edu-minimal-axis.is-visible .past-entry .core-dot {
+  background-color: var(--green);
+}
+
+/* Premium Minimalist Pulsing Ring Indicator */
+.status-pulsing-dot .core-dot {
+  background-color: var(--green);
   position: relative;
 }
 
-.edu-degree {
-  font-family: var(--font-sans);
-  font-size: var(--fz-heading-card);
-  font-weight: 600;
-  color: var(--white) !important;
-  line-height: 1.2;
-  margin-bottom: 9px;
-  transition: var(--transition);
+.status-pulsing-dot::after {
+  content: '';
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border: 1px solid var(--green);
+  border-radius: 50%;
+  animation: minimalRingPulse 2s infinite ease-in-out;
+  opacity: 0;
 }
 
-.edu-range {
+@keyframes minimalRingPulse {
+  0% {
+    transform: scale(0.6);
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 0.4;
+  }
+
+  100% {
+    transform: scale(1.4);
+    opacity: 0;
+  }
+}
+
+/* ==========================================================================
+   EXACT MICRO-VALUED TYPOGRAPHY STRUCTURAL GAPS
+   ========================================================================== */
+
+.edu-node {
+  position: relative;
+  margin-bottom: 35px;
+}
+
+.edu-node:last-child {
+  margin-bottom: 0;
+}
+
+/* 1. Date Element */
+.node-meta {
   display: block;
   font-family: var(--font-mono);
   font-size: var(--fz-xs);
   color: var(--green);
+  margin-bottom: 4px;
+  /* EXACTLY 4px structural gap down to degree title */
 }
 
-.edu-institution {
+/* 2. Degree Title Element */
+.node-title {
   font-family: var(--font-sans);
-  font-size: var(--fz-body);
+  font-size: var(--fz-xl);
+  font-weight: 600;
+  color: var(--white) !important;
+  line-height: 1.3;
+  margin: 0 0 2px 0;
+  /* EXACTLY 2px structural layout gap down to institution */
+}
+
+/* 3. College / Institution Element */
+.node-institution {
+  font-family: var(--font-sans);
+  font-size: var(--fz-md);
   color: var(--slate) !important;
-  line-height: 1.5;
+  line-height: 1.4;
+  margin: 0 0 6px 0;
 }
 
 /* ==========================================================================
-   INTERACTIVE MICROMOTIONS (HOVER EFFECTS)
+   HIGH-PERFORMANCE ABSOLUTE RECTANGULAR TOOLTIP SYSTEM
    ========================================================================== */
 
-.edu-card:hover .edu-degree {
-  color: var(--green) !important;
+.tooltip-wrapper {
+  position: relative;
+  display: inline-block;
+  outline: none;
 }
 
-.edu-card:hover .edu-dot {
-  background: var(--green);
-  box-shadow: 0 0 10px var(--green);
-  transform: scale(1.2);
+/* Clean, completely understated text status label */
+.status-indicator-text {
+  font-family: var(--font-mono);
+  font-size: var(--fz-xs);
+  color: var(--slate);
+  cursor: pointer;
+  transition: color 0.2s ease;
 }
 
-@media (max-width: 480px) {
-  body {
-    font-size: var(--fz-body);
-  }
+.tooltip-wrapper:hover .status-indicator-text {
+  color: var(--green);
+}
 
-  .edu-timeline {
-    margin-left: 10px;
+/* The Rectangular Theme-Matching Tooltip Box Layout */
+.floating-system-tooltip {
+  position: absolute;
+  background-color: var(--light-navy);
+  border: 1px solid var(--lightest-navy);
+  border-radius: 4px;
+  /* Crisp minimal corners */
+  padding: 12px 14px;
+  width: 270px;
+  box-shadow: 0 10px 30px -15px rgba(2, 12, 27, 0.7);
+  z-index: 999;
+
+  /* Initial hidden state parameters */
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(6px);
+  transition: opacity 0.2s cubic-bezier(0.25, 1, 0.5, 1), transform 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.tooltip-header {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--green);
+  letter-spacing: 0.05em;
+  margin-bottom: 4px;
+}
+
+.tooltip-description {
+  font-size: var(--fz-xs) !important;
+  color: var(--light-slate) !important;
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* --- PLACEMENT ARCHITECTURE FOR TOOLTIPS --- */
+
+/* Top Card Tooltip Position: Sits directly above the text button trigger */
+.position-top-left {
+  bottom: 130%;
+  left: 0;
+}
+
+/* Bottom Book Icon Tooltip Position: Sits right above the icon */
+.position-bottom-anchor {
+  bottom: 35px;
+  left: 50%;
+  transform: translateX(-50%) translateY(6px);
+}
+
+/* --- TRIGGER ACTION HOVER & CLICK CONFIGURATION --- */
+.tooltip-wrapper:hover .floating-system-tooltip,
+.tooltip-wrapper:focus .floating-system-tooltip,
+.tooltip-wrapper:focus-within .floating-system-tooltip {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.tooltip-wrapper:hover .position-top-left,
+.tooltip-wrapper:focus .position-top-left,
+.tooltip-wrapper:focus-within .position-top-left {
+  transform: translateY(0);
+}
+
+.tooltip-wrapper:hover .position-bottom-anchor,
+.tooltip-wrapper:focus .position-bottom-anchor,
+.tooltip-wrapper:focus-within .position-bottom-anchor {
+  transform: translateX(-50%) translateY(0);
+}
+
+.tooltip-wrapper:hover .book-icon {
+  stroke: var(--green);
+}
+
+/* ==========================================================================
+   RESPONSIVE OVERRIDES (MOBILE & TABLET VIEWS)
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  .edu-minimal-axis {
+    margin-left: 15px;
     padding-left: 20px;
   }
 
-  .edu-dot {
-    left: -26px;
+  .node-marker {
+    left: -34px;
+  }
+
+  .axis-endpoint {
+    left: -15px;
+  }
+
+  /* Adjust layout positioning slightly on mobile to prevent viewport horizontal clipping overflow */
+  .position-top-left {
+    left: -10px;
+    bottom: 140%;
+  }
+
+  .position-bottom-anchor {
+    left: 0;
+    transform: translateY(6px);
+  }
+
+  .tooltip-wrapper:hover .position-bottom-anchor,
+  .tooltip-wrapper:focus .position-bottom-anchor,
+  .tooltip-wrapper:focus-within .position-bottom-anchor {
+    transform: translateY(0);
   }
 }
 
@@ -997,7 +1511,7 @@ ul.skills li:hover {
   align-items: center;
 }
 
-p.inline_link {
+.other_projects-subheading {
   font-size: var(--fz-sm);
   text-align: center;
   min-width: 60%;
@@ -1387,7 +1901,7 @@ i:hover {
   position: relative;
   height: 100%;
   padding: 1.5rem 1.75rem .5rem 1.75rem;
-  border-radius: var(--border-radius);
+  border-radius: 3px;
   background-color: var(--light-navy);
   transition: var(--transition);
   overflow: auto;
@@ -1462,6 +1976,7 @@ i:hover {
   margin-top: -10px;
 }
 
+/* 
 .spa-nav {
   width: 20%;
   height: 100%;
@@ -1544,7 +2059,7 @@ i:hover {
   position: absolute;
   left: 0px;
   color: var(--green);
-}
+} */
 
 /* 7. MEDIA QUERIES */
 
@@ -1600,10 +2115,6 @@ i:hover {
 
   section.animate-section {
     min-height: 10vh;
-  }
-
-  .animate-text span {
-    font-size: 2rem;
   }
 
   .nav__navigation {
@@ -1743,6 +2254,7 @@ i:hover {
 
   .container--exp {
     width: 90%;
+    margin: 0 auto;
   }
 
   .edu-hold {
@@ -1883,12 +2395,12 @@ i:hover {
   }
 }
 
+/* 
 @media screen and (max-width:768px) {
   .spa-box {
     flex-direction: column;
     gap: 20px;
   }
-
 
   .spa-nav {
     width: 100%;
@@ -1950,7 +2462,7 @@ i:hover {
     bottom: -1px;
     border-radius: 5px;
   }
-}
+} */
 
 @media screen and (max-width: 500px) {
   .container--about {

@@ -87,28 +87,68 @@ if (menuBtn && menuNav) {
   document.addEventListener('scroll', closeMenu);
 }
 
-/* ==========================================================================
-   Work Experience Section Interactive Multi-Tab Switching
-   ========================================================================== */
+//  Experience Section 
 document.addEventListener("DOMContentLoaded", () => {
-  const menuButtons = document.querySelectorAll(".menu-button");
-  const companies = document.querySelectorAll(".tab-content");
+  const tabs = document.querySelectorAll(".job-tab");
+  const panels = document.querySelectorAll(".panel-item");
+  const highlightBar = document.querySelector(".active-highlight-bar");
 
-  menuButtons.forEach((button, index) => {
-    button.addEventListener("click", (event) => {
-      event.preventDefault();
+  function updateActiveTrackIndicator(activeTabElement) {
+    const isMobileView = window.innerWidth <= 600;
 
-      menuButtons.forEach((btn) => btn.classList.remove("spa--active"));
-      button.classList.add("spa--active");
+    if (isMobileView) {
+      // Mobile Horizontal Shift Logic
+      const leftPosition = activeTabElement.offsetLeft;
+      highlightBar.style.transform = `translateX(${leftPosition}px)`;
+    } else {
+      // Desktop Vertical Slide Logic
+      const topPosition = activeTabElement.offsetTop;
+      highlightBar.style.transform = `translateY(${topPosition}px)`;
+    }
+  }
 
-      companies.forEach((company) => company.classList.remove("spa--active"));
-      if (companies[index]) {
-        companies[index].classList.add("spa--active");
+  tabs.forEach((tab) => {
+    // Add both click mouse action and keyboard trigger access support
+    const handleSwitchAction = (e) => {
+      e.preventDefault();
+
+      tabs.forEach(t => {
+        t.classList.remove("active-tab");
+        t.setAttribute("aria-selected", "false");
+      });
+      panels.forEach(p => {
+        p.classList.remove("active-panel");
+        p.setAttribute("aria-hidden", "true");
+      });
+
+      const targetIndex = tab.getAttribute("data-index");
+      tab.classList.add("active-tab");
+      tab.setAttribute("aria-selected", "true");
+
+      const targetsActivePanel = document.getElementById(`panel-${targetIndex}`);
+      if (targetsActivePanel) {
+        targetsActivePanel.classList.add("active-panel");
+        targetsActivePanel.setAttribute("aria-hidden", "false");
+      }
+
+      updateActiveTrackIndicator(tab);
+    };
+
+    tab.addEventListener("click", handleSwitchAction);
+    tab.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        handleSwitchAction(e);
       }
     });
   });
-});
 
+  window.addEventListener("resize", () => {
+    const activeTab = document.querySelector(".job-tab.active-tab");
+    if (activeTab) {
+      updateActiveTrackIndicator(activeTab);
+    }
+  });
+});
 /* ==========================================================================
    Education Timeline Animation Triggers on viewport entry
    ========================================================================== */
